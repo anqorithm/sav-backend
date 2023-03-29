@@ -28,10 +28,25 @@ app.use("/api/v1/products", productsRoutes);
 app.get("/", (req: Request, res: Response) => {
   res
     .json({
-      message: "hello, this microservice 1",
+      message: `hello, this microservice 1, for more help go to /help`,
       statusCode: 200,
     })
     .status(200);
+});
+
+app.get("/help", (req: Request, res: Response) => {
+  res.json({
+    data: {
+      routes: [
+        "GET /api/v1/products",
+        "GET /api/v1/products/:id",
+        "POST /api/v1/products",
+        "PUT /api/v1/products/:id",
+        "DELETE /api/v1/products/:id",
+      ],
+      statusCode: 200,
+    },
+  });
 });
 
 app.get("/health", (req: Request, res: Response) => {
