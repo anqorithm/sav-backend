@@ -1,6 +1,6 @@
 import { Response, Request, NextFunction } from "express";
 import { IProduct, Product } from "../models/Product";
-
+import validations from "../validations/product.schema";
 const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products: Array<IProduct> = await Product.find();
@@ -25,7 +25,6 @@ const createProduct = async (
   next: NextFunction
 ) => {
   try {
-    console.log(req.body);
     const { name, description, price, imageUrl } = req.body;
     const product: IProduct = new Product({
       name,

@@ -5,6 +5,7 @@ export interface IProduct extends Document {
   description: string;
   price: number;
   imageUrl: string;
+  numberOfInstallments: number;
 }
 
 const ProductSchema: Schema = new Schema(
@@ -13,9 +14,14 @@ const ProductSchema: Schema = new Schema(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     imageUrl: { type: String, required: true },
+    numberOfInstallments: { type: Number, required: true },
   },
   {
-    versionKey: false,
+    toObject: {
+      transform: function (doc, ret, game) {
+        delete ret.__v;
+      },
+    },
   }
 );
 
