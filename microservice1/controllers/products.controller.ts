@@ -4,9 +4,16 @@ import { IProduct, Product } from "../models/Product";
 const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products: Array<IProduct> = await Product.find();
-    res.json({
-      data: products,
-    });
+    res
+      .json({
+        data: {
+          message: "Products has been fetched successfully",
+          statusCode: 200,
+          status: true,
+          products: products,
+        },
+      })
+      .status(200);
   } catch (error: any) {
     next(error);
   }
@@ -27,10 +34,16 @@ const createProduct = async (
       imageUrl,
     });
     await product.save();
-    res.status(201).json({
-      data: product,
-      message: "Product created successfully",
-    });
+    res
+      .json({
+        data: {
+          message: "Product has been created successfully",
+          statusCode: 201,
+          status: true,
+          product: product,
+        },
+      })
+      .status(201);
   } catch (error: any) {
     next(error);
   }
