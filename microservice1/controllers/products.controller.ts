@@ -1,6 +1,7 @@
 import { Response, Request, NextFunction } from "express";
 import { IProduct, Product } from "../models/Product";
-import validations from "../validations/product.schema";
+import productSchema from "../validations/product.schema";
+
 const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products: Array<IProduct> = await Product.find();
@@ -25,24 +26,35 @@ const createProduct = async (
   next: NextFunction
 ) => {
   try {
-    const { name, description, price, imageUrl } = req.body;
+    const { name, description, price, imageUrl, numberOfInstallments } =
+      req.body;
+    const { error } = productSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({
+        data: {
+          message: "Validation error",
+          statusCode: 400,
+          status: false,
+          error: error.details,
+        },
+      });
+    }
     const product: IProduct = new Product({
       name,
       description,
       price,
       imageUrl,
+      numberOfInstallments,
     });
     await product.save();
-    res
-      .json({
-        data: {
-          message: "Product has been created successfully",
-          statusCode: 201,
-          status: true,
-          product: product,
-        },
-      })
-      .status(201);
+    return res.status(201).json({
+      data: {
+        message: "Product has been created successfully",
+        statusCode: 201,
+        status: true,
+        product,
+      },
+    });
   } catch (error: any) {
     next(error);
   }
