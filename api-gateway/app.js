@@ -4,8 +4,6 @@ import cors from "cors";
 import morgan from "morgan";
 import gatewayRoutes from "./routes/gateway.routes.js";
 
-
-
 // node middlewares setup
 
 app.use(cors())

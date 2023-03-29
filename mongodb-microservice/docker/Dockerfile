@@ -1,7 +1,5 @@
-FROM mongo
+FROM mongo:latest
 
-COPY init.js /docker-entrypoint-initdb.d/
+RUN mkdir -p /data/db
 
-EXPOSE 27017
-
-CMD ["mongod", "--bind_ip_all", "--smallfiles"]
+CMD ["mongod", "--bind_ip_all"]

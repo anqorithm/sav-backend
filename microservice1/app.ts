@@ -3,7 +3,13 @@ const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
 import { connectDB } from "./config/db";
+import * as dotenv from "dotenv";
+import bodyParser = require("body-parser");
 
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+dotenv.config();
 connectDB();
 
 app.use(

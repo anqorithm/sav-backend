@@ -1,12 +1,15 @@
-version: "3"
-
+version: "3.8"
+name: sav-backend
 services:
-  mongo:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    volumes:
-      - ./data:/data/db
+  mongodb:
+    container_name: mongodb
+    build: .
     ports:
       - "27017:27017"
+    volumes:
+      - data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+volumes:
+  data:
