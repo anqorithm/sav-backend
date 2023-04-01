@@ -10,7 +10,7 @@ services:
     env_file:
       - ./.env
     ports:
-      - "9008:9000"
+      - "5001:9000"
     volumes:
       - ./:/app
       - ./node_modules:/app/node_modules

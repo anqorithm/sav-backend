@@ -62,6 +62,7 @@ app.get("*", function (req: Request, res: Response) {
   res
     .json({
       message: "not found",
+
       statusCode: 404,
     })
     .status(404);
