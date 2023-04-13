@@ -5,16 +5,14 @@ import productSchema from "../validations/product.schema";
 const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const products: Array<IProduct> = await Product.find();
-    res
-      .json({
-        data: {
-          message: "Products has been fetched successfully",
-          statusCode: 200,
-          status: true,
-          products: products,
-        },
-      })
-      .status(200);
+    res.status(200).json({
+      data: {
+        message: "Products has been fetched successfully",
+        statusCode: 200,
+        status: true,
+        products: products,
+      },
+    });
   } catch (error: any) {
     next(error);
   }

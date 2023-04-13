@@ -4,6 +4,10 @@ import cors from "cors";
 import morgan from "morgan";
 import gatewayRoutes from "./routes/gateway.routes";
 
+import bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // node middlewares setup
 
 app.use(
