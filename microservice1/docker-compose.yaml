@@ -1,5 +1,5 @@
 version: "3.8"
-name: sav-backend
+name: sav
 services:
   microservice1:
     container_name: microservice1

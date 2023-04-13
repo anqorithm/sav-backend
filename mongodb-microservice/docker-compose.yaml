@@ -1,9 +1,11 @@
 version: "3.8"
-name: sav-backend
+name: sav
 services:
   mongodb:
     container_name: mongodb
-    build: .
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
     ports:
       - "127.1.1.1:27017:27017"
     volumes:

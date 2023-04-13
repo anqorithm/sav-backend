@@ -10,17 +10,13 @@ app.use(bodyParser.json());
 
 // node middlewares setup
 
-app.use(
-  cors({
-    origin: "*",
-  })
-);
+app.use(cors());
 
 app.use(morgan("dev"));
 
 // microservices
 
-app.use("/", gatewayRoutes);
+app.use("/api/v1", gatewayRoutes);
 
 // health checker
 
