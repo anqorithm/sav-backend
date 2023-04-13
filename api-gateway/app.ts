@@ -10,7 +10,11 @@ app.use(bodyParser.json());
 
 // node middlewares setup
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(morgan("dev"));
 

@@ -19,3 +19,4 @@ services:
 networks:
   sav-network:
     name: sav-network
+    driver: bridge
