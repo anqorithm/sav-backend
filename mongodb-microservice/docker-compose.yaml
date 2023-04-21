@@ -11,8 +11,8 @@ services:
     volumes:
       - data:/data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_ROOT_USERNAME: sav
+      MONGO_INITDB_ROOT_PASSWORD: sav
     networks:
       - sav-network
 volumes:
