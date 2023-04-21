@@ -2,7 +2,7 @@ import express, { Request, Response, Application } from "express";
 const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
-import gatewayRoutes from "./routes/gateway.routes";
+import productsRoutes from "./routes/products.routes";
 
 import bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -20,7 +20,7 @@ app.use(morgan("dev"));
 
 // microservices
 
-app.use("/api/v1", gatewayRoutes);
+app.use("/api/v1/products", productsRoutes);
 
 // health checker
 

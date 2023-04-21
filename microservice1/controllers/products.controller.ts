@@ -26,17 +26,6 @@ const createProduct = async (
   try {
     const { name, description, price, imageUrl, numberOfInstallments } =
       req.body;
-    const { error } = productSchema.validate(req.body);
-    if (error) {
-      return res.status(400).json({
-        data: {
-          message: "Validation error",
-          statusCode: 400,
-          status: false,
-          error: error.details,
-        },
-      });
-    }
     const product: IProduct = new Product({
       name,
       description,
