@@ -3,7 +3,8 @@ const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
 import productsRoutes from "./routes/products.routes";
-
+import { graphqlHTTP } from "express-graphql";
+import { schema } from "./schema";
 import bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -21,6 +22,14 @@ app.use(morgan("dev"));
 // microservices
 
 app.use("/api/v1/products", productsRoutes);
+
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema: schema,
+    graphiql: true,
+  })
+);
 
 // health checker
 

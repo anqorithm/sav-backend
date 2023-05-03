@@ -1,23 +1,12 @@
 import { Router, Request, Response } from "express";
-import { ProductData } from "../interfaces/ProductInterface";
+import { getAllProducts } from "../services/getAllProducts";
+import { createProduct } from "../services/createProduct";
 const router = Router();
 
-const MICROSERVICE1_API_ENDPOINT = process.env.MICROSERVICE1_API_ENDPOINT;
 router.get("/", async (req: Request, res: Response) => {
   try {
-    console.log(MICROSERVICE1_API_ENDPOINT);
-    const response = await fetch(
-      MICROSERVICE1_API_ENDPOINT + "/api/v1/products"
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const contentType = response.headers.get("Content-Type");
-    if (!contentType || !contentType.includes("application/json")) {
-      throw new TypeError("Response is not in JSON format");
-    }
-    const data = await response.json();
-    res.json({ data });
+    const products = await getAllProducts();
+    res.json({ data: products });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
@@ -26,30 +15,13 @@ router.get("/", async (req: Request, res: Response) => {
 
 router.post("/", async (req: Request, res: Response) => {
   try {
-    const productData: ProductData = req.body;
-    const response = await fetch(
-      MICROSERVICE1_API_ENDPOINT + "/api/v1/products",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(productData),
-      }
-    );
-
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    const contentType = response.headers.get("Content-Type");
-    if (!contentType || !contentType.includes("application/json")) {
-      throw new TypeError("Response is not in JSON format");
-    }
-    const data = await response.json();
-    res.json({ data });
+    const productData = req.body;
+    const product = await createProduct(productData);
+    res.json({ data: product });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 export default router;
