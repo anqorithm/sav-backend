@@ -1,0 +1,22 @@
+version: "3.8"
+name: sav
+services:
+  auth-microservice:
+    container_name: auth-microservice
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    restart: always
+    env_file:
+      - ./.env
+    ports:
+      - "127.1.1.8:9000:9000"
+    volumes:
+      - ./:/app
+      - ./node_modules:/app/node_modules
+    networks:
+      - sav-network
+networks:
+  sav-network:
+    name: sav-network
+    driver: bridge
