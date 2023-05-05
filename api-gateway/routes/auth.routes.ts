@@ -1,21 +1,19 @@
 import { Router, Request, Response } from "express";
-import { getAllProducts } from "../services/getAllProducts";
+import { registerUser } from "../services/auth/Register";
 import { createProduct } from "../services/createProduct";
-import { isAuthenticated } from "../middlewares/isAuthenticated ";
-
 const router = Router();
 
-router.get("/", isAuthenticated, async (req: Request, res: Response) => {
+router.post("/register", async (req: Request, res: Response) => {
   try {
-    const products = await getAllProducts();
-    res.json({ data: products });
+    const user = await registerUser(req.body);
+    res.json({ data: user });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-router.post("/", isAuthenticated, async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const productData = req.body;
     const product = await createProduct(productData);
