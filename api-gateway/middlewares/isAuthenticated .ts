@@ -16,7 +16,7 @@ export const isAuthenticated = (
 
   try {
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string); // Verify token
-    req._id = (decodedToken as any)._id; // Save user ID in request object
+    // req._id = (decodedToken as any)._id; // Save user ID in request object
     next(); // Call next middleware
   } catch (error) {
     console.error(error);

@@ -5,7 +5,7 @@ import { isAuthenticated } from "../middlewares/isAuthenticated ";
 
 const router = Router();
 
-router.get("/", isAuthenticated, async (req: Request, res: Response) => {
+router.get("/", async (req: Request, res: Response) => {
   try {
     const products = await getAllProducts();
     res.json({ data: products });
@@ -15,7 +15,7 @@ router.get("/", isAuthenticated, async (req: Request, res: Response) => {
   }
 });
 
-router.post("/", isAuthenticated, async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   try {
     const productData = req.body;
     const product = await createProduct(productData);
