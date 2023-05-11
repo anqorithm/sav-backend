@@ -1,6 +1,33 @@
 import { Request, Response } from "express";
 import { Transaction, ITransaction } from "../models/Transaction";
 
+// GET /transactions
+export const getAllTransactions = async (req: Request, res: Response) => {
+  try {
+    const transactions = await Transaction.find();
+    if (!transactions) {
+      res.status(404).json({
+        message: "No transactions found",
+        statusCode: 404,
+        status: true,
+        transactions: [],
+      });
+    } else {
+      res.status(200).json({
+        data: {
+          message: "Transactions have been fetched successfully",
+          statusCode: 200,
+          status: true,
+          transactions: transactions,
+        },
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 // POST /transactions
 export const createTransaction = async (req: Request, res: Response) => {
   try {

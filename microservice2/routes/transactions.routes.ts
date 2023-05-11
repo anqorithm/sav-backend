@@ -5,9 +5,12 @@ import {
   createTransaction,
   getTransaction,
   rejectTransaction,
+  getAllTransactions,
 } from "../controllers/transactions.controller";
 
 const router = express.Router();
+
+router.get("/", getAllTransactions);
 
 // POST /transactions
 router.post("/", createTransaction);
