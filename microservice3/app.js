@@ -5,9 +5,24 @@ const morgan = require("morgan");
 const connectDB = require("./config/db");
 const dotenv = require("dotenv");
 const bodyParser = require("body-parser");
+const graphQLServer = require('./controllers/GraphQL');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
+async function startApolloServer() {
+  await graphQLServer.start();
+
+  graphQLServer.applyMiddleware({ app });
+
+  await new Promise(resolve => app.listen({ port: 4000 }, resolve));
+  console.log(`Server running at http://localhost:4000${graphQLServer.graphqlPath}`);
+}
+
+startApolloServer().catch(err => {
+  console.error(err);
+  process.exit(1);
+});
 
 dotenv.config();
 connectDB();
