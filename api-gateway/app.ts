@@ -3,6 +3,7 @@ const app: Application = express();
 import cors from "cors";
 import morgan from "morgan";
 import productsRoutes from "./routes/products.routes";
+import transactionsRoutes from "./routes/transactions.routes";
 import authRoutes from "./routes/auth.routes";
 import { graphqlHTTP } from "express-graphql";
 import { schema } from "./schema";
@@ -20,9 +21,14 @@ app.use(
 
 app.use(morgan("dev"));
 
-// microservices
-
+// microservice 1
 app.use("/api/v1/products", productsRoutes);
+
+// microservice 3
+
+app.use("/api/v1/transactions", transactionsRoutes);
+
+// microservice 2
 app.use("/api/v1/auth", authRoutes);
 
 app.use(
