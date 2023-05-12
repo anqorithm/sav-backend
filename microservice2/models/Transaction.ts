@@ -20,10 +20,10 @@ export interface ITransaction extends Document {
 
 const TransactionSchema: Schema = new Schema(
   {
-    status: { type: String, required: true },
+    status: { type: String },
     amount: { type: Number, required: true },
     paymentMethod: { type: String, required: true },
-    paymentId: { type: String, required: true },
+    paymentId: { type: String },
     deliveryDate: { type: Date, required: true },
     buyer: {
       name: { type: String, required: true },
